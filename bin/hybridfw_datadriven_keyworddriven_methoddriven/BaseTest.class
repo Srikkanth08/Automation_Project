@@ -1,0 +1,36 @@
+
+package hybridfw_datadriven_keyworddriven_methoddriven;
+
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebDriver;
+
+public class BaseTest implements IAutoConsts
+{
+    public static WebDriver driver;
+    
+    public void openBrowser() throws Throwable {
+        final FileLib flib = new FileLib();
+        final String browserName = flib.readPropertyData("./data/config.properties", "browser");
+        if (browserName.equals("chrome")) {
+            System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
+            BaseTest.driver = (WebDriver)new ChromeDriver();
+        }
+        else if (browserName.equals("firefox")) {
+            System.setProperty("webdriver.gecko.driver", "./drivers/geckodriver.exe");
+            BaseTest.driver = (WebDriver)new FirefoxDriver();
+        }
+        else {
+            System.out.println("Enter proper browser name");
+        }
+        BaseTest.driver.manage().window().maximize();
+        final String appUrl = flib.readPropertyData("./data/config.properties", "url");
+        BaseTest.driver.get(appUrl);
+        final WebDriverCommonLib wlib = new WebDriverCommonLib();
+        wlib.verify("actiTIME - Login", wlib.getPageTitle(), "Login Page");
+    }
+    
+    public void closeBrowser() {
+        BaseTest.driver.quit();
+    }
+}

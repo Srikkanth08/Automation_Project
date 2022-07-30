@@ -1,0 +1,16 @@
+package hybridfw_datadriven_keyworddriven_methoddriven;
+
+import java.io.InputStream;
+import java.util.Properties;
+import java.io.FileInputStream;
+
+public class FileLib
+{
+    public String readPropertyData(final String path, final String key) throws Throwable {
+        final FileInputStream fis = new FileInputStream(path);
+        final Properties prop = new Properties();
+        prop.load(fis);
+        final String propValue = prop.getProperty(key, "Incorrct Key");
+        return propValue;
+    }
+}

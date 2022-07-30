@@ -1,0 +1,44 @@
+package hybridfw_datadriven_keyworddriven_methoddriven;
+
+import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.WebElement;
+
+public class LoginPage
+{
+    @FindBy(id = "username")
+    private WebElement untb;
+    @FindBy(name = "pwd")
+    private WebElement pwtb;
+    @FindBy(xpath = "//div[text()='Login ']")
+    private WebElement loginBtn;
+    
+    public LoginPage() {
+        PageFactory.initElements((SearchContext)BaseTest.driver, (Object)this);
+    }
+    
+    public WebElement getuntb() {
+        return this.untb;
+    }
+    
+    public WebElement getpwtb() {
+        return this.pwtb;
+    }
+    
+    public WebElement getLoginBtn() {
+        return this.loginBtn;
+    }
+    
+    public void typeUn(final String un) {
+        this.untb.sendKeys(new CharSequence[] { un });
+    }
+    
+    public void typePw(final String pwd) {
+        this.pwtb.sendKeys(new CharSequence[] { pwd });
+    }
+    
+    public void clickLoginBtn() {
+        this.loginBtn.click();
+    }
+}
